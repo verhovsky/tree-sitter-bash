@@ -1,17 +1,77 @@
 =============================
-Test expressions
+Booleans and equality
 =============================
 
-[[ foo==foo && ! foo = bar || baz ]]
+[[ foo != foo && ! foo = bar || baz ]]
+[ foo -ne bar -a ! foo -eq bar -o baz ]
 
 ---
 
 (program
   (test_command
     (binary_expression
-      (word)
+      (binary_expression (word) (word))
+      (unary_expression
+        (binary_expression
+          (binary_expression (word) (word))
+          (word)))))
+  (test_command
+    (binary_expression
+      (binary_expression (word) (word))
       (unary_expression
         (binary_expression
           (binary_expression (word) (word))
           (word))))))
 
+=================================
+File tests
+=================================
+
+[[ a -nt b && a -ot b ]]
+
+---
+
+(program
+  (test_command
+    (binary_expression
+      (binary_expression (word) (word))
+      (binary_expression (word) (word)))))
+
+=================================
+Inequalities
+=================================
+
+[[ 1 < 4 && 255 -ge 16#ff ]]
+
+---
+
+(program
+  (test_command
+    (binary_expression
+      (binary_expression (number) (number))
+      (binary_expression (number) (number)))))
+
+=================================
+Unary comparisons
+=================================
+
+[[ -f foo ]]
+[[ -x foo ]]
+
+---
+
+(program
+  (test_command
+    (unary_expression (test_operator) (word)))
+  (test_command
+    (unary_expression (test_operator) (word))))
+
+==========================
+Arithmetic expressions
+==========================
+
+((a = ~(-1 << 8 )))
+
+---
+
+()

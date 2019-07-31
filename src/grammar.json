@@ -976,7 +976,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_expression"
+                  "name": "_arithmetic_expression"
                 },
                 {
                   "type": "STRING",
@@ -1405,10 +1405,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "postfix_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "parenthesized_expression"
         }
       ]
@@ -1420,108 +1416,168 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_expression"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "+"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "-"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "+="
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "-="
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "<"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": ">"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "<="
-                  },
-                  {
-                    "type": "STRING",
-                    "value": ">="
-                  },
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 4,
-                      "content": {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": "="
-                          },
-                          {
-                            "type": "STRING",
-                            "value": "!="
-                          }
-                        ]
-                      }
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "||"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-o"
                     }
-                  },
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 1,
-                      "content": {
-                        "type": "STRING",
-                        "value": "||"
-                      }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 2,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "&&"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-a"
                     }
-                  },
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 2,
-                      "content": {
-                        "type": "STRING",
-                        "value": "&&"
-                      }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 3,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "!="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-eq"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-ne"
                     }
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "<<"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": ">>"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "test_operator"
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_expression"
-              }
-            ]
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 4,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "-nt"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-ot"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-ef"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "<"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "<="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-lt"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-le"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-gt"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-ge"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            }
           },
           {
             "type": "SEQ",
@@ -1577,41 +1633,13 @@
       "members": [
         {
           "type": "PREC",
-          "value": 1,
+          "value": 5,
           "content": {
             "type": "SEQ",
             "members": [
               {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 1,
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "-"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "+"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "~"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "++"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "--"
-                      }
-                    ]
-                  }
-                }
+                "type": "SYMBOL",
+                "name": "test_operator"
               },
               {
                 "type": "SYMBOL",
@@ -1627,17 +1655,8 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "!"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "test_operator"
-                  }
-                ]
+                "type": "STRING",
+                "value": "!"
               },
               {
                 "type": "SYMBOL",
@@ -1645,28 +1664,6 @@
               }
             ]
           }
-        }
-      ]
-    },
-    "postfix_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_expression"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "++"
-            },
-            {
-              "type": "STRING",
-              "value": "--"
-            }
-          ]
         }
       ]
     },
@@ -1684,6 +1681,508 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "_arithmetic_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unary_arithmetic_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "binary_arithmetic_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ternary_arithmetic_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parenthesized_arithmetic_expression"
+        }
+      ]
+    },
+    "parenthesized_arithmetic_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_arithmetic_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "binary_arithmetic_expression": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "PREC",
+                  "value": 20,
+                  "content": {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 2,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "+="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "*="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "/="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "%="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "<<="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">>="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "|="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "^="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "&="
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 3,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 5,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "||"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 6,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "&&"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 7,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "|"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 8,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "&"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 9,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": "^"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 10,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "=="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "!="
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 11,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "<"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "<="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">="
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 12,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "<<"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">>"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 13,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "+"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC",
+            "value": 14,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "*"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "/"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "%"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_arithmetic_expression"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ternary_arithmetic_expression": {
+      "type": "PREC_RIGHT",
+      "value": 4,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_arithmetic_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "?"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_arithmetic_expression"
+          },
+          {
+            "type": "STRING",
+            "value": ":"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_arithmetic_expression"
+          }
+        ]
+      }
+    },
+    "unary_arithmetic_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 15,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "-"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "+"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "!"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "~"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "++"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "--"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_arithmetic_expression"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1774,7 +2273,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_expression"
+          "name": "_arithmetic_expression"
         },
         {
           "type": "STRING",
