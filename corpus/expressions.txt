@@ -1,0 +1,17 @@
+=============================
+Test expressions
+=============================
+
+[[ foo==foo && ! foo = bar || baz ]]
+
+---
+
+(program
+  (test_command
+    (binary_expression
+      (word)
+      (unary_expression
+        (binary_expression
+          (binary_expression (word) (word))
+          (word))))))
+

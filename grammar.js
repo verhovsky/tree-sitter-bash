@@ -353,18 +353,23 @@ module.exports = grammar({
       seq(
         $._expression,
         choice(
-          '=', '==', '=~', '!=',
           '+', '-', '+=', '-=',
           '<', '>', '<=', '>=',
-          '||', '&&', '<<', '>>',
+          token(prec(4, choice('=', '!='))),
+          token(prec(1, '||')),
+          token(prec(2, '&&')),
+          '<<', '>>',
           $.test_operator
         ),
         $._expression
       ),
       seq(
         $._expression,
-        choice('==', '=~'),
-        $.regex
+        token(prec(4, choice('==', '=~'))),
+        choice(
+          prec(1, $.regex),
+          $._expression
+        )
       )
     )),
 
