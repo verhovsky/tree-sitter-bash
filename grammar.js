@@ -488,7 +488,7 @@ module.exports = grammar({
       )
     ),
 
-    string_expansion: $ => seq('$', choice($.string, $.raw_string)),
+    string_expansion: $ => seq('$', $.string),
 
     // See https://zsh.sourceforge.io/Doc/Release/Expansion.html#Parameter-Expansion-Flags
     expansion_flags: ($) => seq("(", repeat(/[^()]/), ")"),
